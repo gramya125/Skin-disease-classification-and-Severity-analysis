@@ -1,128 +1,243 @@
 # Skin Disease Classification and Severity Analysis
 
-This project is a skin image analysis web app with a FastAPI backend and a static frontend. It predicts:
+AI-powered web application for **skin disease classification and severity analysis** using deep learning and clustering techniques.
 
-- Skin disease class using a trained CNN model
-- Severity stage using PCA + KMeans on extracted CNN features
+---
 
-The app is designed for local use on Windows and includes pre-trained model files inside the `models/` folder.
+## 🌐 Live Demo
 
-## Project Structure
+**Deployed Application:**
+https://skin-disease-classification-and-severity.onrender.com/
 
-```text
+Upload a skin image to receive:
+
+* Disease classification
+* Severity stage prediction
+* Confidence score
+* Suggested next steps
+
+---
+
+## 📌 Project Overview
+
+This project is a **web-based AI system** designed to analyze skin lesion images and predict:
+
+1. **Skin Disease Class** using a trained **Convolutional Neural Network (CNN)**
+2. **Severity Stage** using **PCA + KMeans clustering** applied to extracted CNN features
+
+The application combines **deep learning for image classification** with **unsupervised learning for severity estimation**.
+
+The system consists of:
+
+* **Frontend:** Static HTML/CSS/JavaScript interface for image upload and results display
+* **Backend:** FastAPI server handling prediction requests
+* **Machine Learning Models:** CNN classifier + PCA + KMeans severity model
+
+---
+
+## ✨ Features
+
+* Drag-and-drop **image upload interface**
+* AI-powered **skin disease classification**
+* **Severity prediction**: Early, Moderate, Severe
+* Confidence score visualization
+* REST API powered by **FastAPI**
+* Automatic **model health monitoring endpoint**
+* Cloud deployment for public access
+
+---
+
+## 🧠 Machine Learning Pipeline
+
+The prediction workflow follows these steps:
+
+1. User uploads a skin lesion image
+2. Image is sent to the FastAPI backend
+3. Image is preprocessed and resized
+4. CNN model predicts the **disease class**
+5. CNN feature extractor generates embeddings
+6. **PCA** reduces the feature dimensions
+7. **KMeans clustering** predicts the severity stage
+8. Backend returns disease, severity, confidence, and suggestion
+9. Frontend displays the results
+
+---
+
+## 🏗 System Architecture
+
+```
+Frontend (HTML / CSS / JavaScript)
+            │
+            ▼
+      FastAPI Backend
+            │
+            ▼
+      CNN Model (TensorFlow)
+            │
+            ▼
+   Feature Extraction Layer
+            │
+            ▼
+        PCA Model
+            │
+            ▼
+      KMeans Clustering
+            │
+            ▼
+        Prediction API
+```
+
+---
+
+## 📂 Project Structure
+
+```
 .
 |-- api/
 |   |-- main.py
 |   |-- predictor.py
 |   |-- config.py
 |   `-- requirements.txt
+|
 |-- frontend/
 |   |-- index.html
 |   |-- script.js
 |   `-- style.css
+|
 |-- models/
 |   |-- best_cnn_model.h5
 |   |-- label_encoder.pkl
 |   |-- pca_model.pkl
 |   `-- kmeans_severity.pkl
+|
 |-- run-new.bat
 `-- README.md
 ```
 
-## Features
+---
 
-- Image upload with drag and drop UI
-- Disease prediction from skin lesion image
-- Severity prediction as Early, Moderate, or Severe stage
-- Confidence score display
-- FastAPI `/docs` interface for backend testing
-- `/health` endpoint to confirm model loading
+## ⚙️ Tech Stack
 
-## Tech Stack
+### Backend
 
-- Python
-- FastAPI
-- TensorFlow / Keras
-- scikit-learn
-- HTML, CSS, JavaScript
+* Python
+* FastAPI
+* TensorFlow / Keras
+* scikit-learn
+* NumPy
 
-## Requirements
+### Frontend
 
-- Windows
-- Python 3.10 or newer
-- Internet connection for first-time dependency install
+* HTML
+* CSS
+* JavaScript
 
-If TensorFlow installation fails on Windows, install the Visual C++ Redistributable:
+### Machine Learning
 
-`https://aka.ms/vs/17/release/vc_redist.x64.exe`
+* CNN for disease classification
+* PCA for dimensionality reduction
+* KMeans for severity clustering
 
-## How to Run
+### Deployment
 
-### Option 1: One-click launcher
+* Cloud deployment via Render
+
+---
+
+## 💻 Requirements
+
+* Windows / Linux / macOS
+* Python 3.10+
+* Internet connection for dependency installation
+
+If TensorFlow installation fails on Windows, install:
+
+https://aka.ms/vs/17/release/vc_redist.x64.exe
+
+---
+
+## 🚀 Running the Project Locally
+
+### Option 1 — One-click launcher
 
 Run:
 
-```powershell
+```
 cd "D:\SKIN DISEASE C AND S GIT"
 .\run-new.bat
 ```
 
-This script:
+This script will:
 
-- creates or uses `venv/`
-- installs dependencies
-- starts the backend server
-- opens the frontend page
+* create or activate `venv`
+* install dependencies
+* start the FastAPI server
+* open the frontend page
 
-### Option 2: Manual run
+---
 
-Start the backend:
+### Option 2 — Manual Run
 
-```powershell
+Start backend:
+
+```
 cd "D:\SKIN DISEASE C AND S GIT"
 .\venv\Scripts\python.exe -m uvicorn api.main:app --host 127.0.0.1 --port 8000
 ```
 
-Open the frontend:
+Open frontend:
 
-```powershell
+```
 start .\frontend\index.html
 ```
 
-## API Endpoints
+---
 
-- Root: `http://127.0.0.1:8000/`
-- Swagger docs: `http://127.0.0.1:8000/docs`
-- Health check: `http://127.0.0.1:8000/health`
-- Prediction endpoint: `POST /predict`
+## 🔌 API Endpoints
 
-Health check example:
+Root
 
-```powershell
+```
+http://127.0.0.1:8000/
+```
+
+Swagger Documentation
+
+```
+http://127.0.0.1:8000/docs
+```
+
+Health Check
+
+```
+http://127.0.0.1:8000/health
+```
+
+Prediction Endpoint
+
+```
+POST /predict
+```
+
+---
+
+## 🧪 Health Check Example
+
+```
 Invoke-WebRequest -UseBasicParsing http://127.0.0.1:8000/health | Select-Object -ExpandProperty Content
 ```
 
 Expected response:
 
-```json
+```
 {"status":"ok","model_loaded":true,"error":null}
 ```
 
-## Prediction Flow
+---
 
-1. User uploads a skin image from the frontend
-2. Frontend sends the image to the FastAPI backend
-3. CNN model predicts the disease class
-4. Feature extractor generates embeddings from the CNN
-5. PCA reduces the feature dimensions
-6. KMeans predicts severity stage
-7. Backend returns disease, severity, confidence, and suggestion
+## 📊 Example API Response
 
-## Output Format
-
-Example API response:
-
-```json
+```
 {
   "disease": "Melanoma",
   "severity": "Moderate Stage",
@@ -131,23 +246,31 @@ Example API response:
 }
 ```
 
-## Notes
+---
 
-- The project uses pre-trained local model files from the `models/` folder.
-- Model loading is checked at startup through the `/health` endpoint.
-- The frontend is static and does not require a separate build step.
-- This project is for educational and research purposes only.
+## 📝 Notes
 
-## Git Commands
+* Pre-trained models are stored in the `models/` directory
+* Model loading is verified during server startup
+* The frontend is static and does not require a build step
+* Designed primarily for educational and research purposes
 
-If you want to push this project to GitHub:
+---
 
-```powershell
+## 📤 Git Commands
+
+To push the project to GitHub:
+
+```
 cd "D:\SKIN DISEASE C AND S GIT"
 git remote set-url origin https://github.com/gramya125/Skin-disease-classification-and-Severity-analysis.git
 git push -u origin main
 ```
 
-## Disclaimer
+---
 
-This application is not a medical device and should not be used as a substitute for professional diagnosis or treatment. Always consult a qualified dermatologist or medical professional.
+## ⚠️ Disclaimer
+
+This application is **not a medical device** and should not be used as a substitute for professional diagnosis or treatment.
+
+Always consult a **qualified dermatologist or medical professional** for medical advice.

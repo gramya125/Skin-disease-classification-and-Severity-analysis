@@ -2,6 +2,8 @@ from contextlib import suppress
 
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from PIL import Image
 import io
 
@@ -20,8 +22,11 @@ except ImportError:
     )
     from predictor import SkinPredictor
 
+
 app = FastAPI(title="Skin Disease Prediction API", version="2.0")
 
+
+# Allow frontend requests
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -30,9 +35,16 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+# Serve frontend files
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
+
+
 predictor = None
 model_load_error = None
 
+
+# Try loading model
 with suppress(Exception):
     predictor = SkinPredictor()
 
@@ -43,11 +55,13 @@ if predictor is None:
         model_load_error = str(exc)
 
 
+# Root endpoint → serve website
 @app.get("/")
 def root():
-    return {"message": "Skin Disease Prediction API running. Use /docs to test."}
+    return FileResponse("frontend/index.html")
 
 
+# Health check
 @app.get("/health")
 def health():
     return {
@@ -57,8 +71,10 @@ def health():
     }
 
 
+# Prediction endpoint
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
+
     if predictor is None:
         raise HTTPException(
             status_code=503,
@@ -84,6 +100,6 @@ async def predict(file: UploadFile = File(...)):
     return {
         "disease": disease,
         "severity": severity,
-        "confidence": round(confidence,4),
+        "confidence": round(confidence, 4),
         "suggestion": suggestion
     }

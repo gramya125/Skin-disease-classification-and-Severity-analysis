@@ -4,70 +4,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skin Disease Analyzer - AI Powered Diagnosis</title>
-    <link rel="stylesheet" href="style.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+
+    <!-- Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1><i class="fas fa-stethoscope"></i> Skin Disease Analyzer</h1>
-            <p>AI-powered analysis using CNN + Severity Clustering. Upload skin image for instant diagnosis.</p>
-        </header>
 
-        <main>
-            <div id="upload-section" class="upload-area">
-                <div class="upload-zone" id="uploadZone">
-                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                    <h3>Drag & drop your skin image here<br>or click to browse</h3>
-                    <p>Supports JPG, PNG (max 10MB)</p>
-                    <input type="file" id="imageInput" accept="image/*" hidden>
-                </div>
-                <div id="preview" class="preview hidden">
-                    <img id="previewImg" alt="Preview">
-                    <button id="predictBtn" class="predict-btn">
-                        <i class="fas fa-brain"></i> Analyze Skin
-                    </button>
-                </div>
-            </div>
+<div class="container">
 
-            <div id="loading" class="loading hidden">
-                <div class="spinner"></div>
-                <p>Analyzing... This may take 10-20 seconds</p>
-            </div>
+<header>
+    <h1><i class="fas fa-stethoscope"></i> Skin Disease Analyzer</h1>
+    <p>AI-powered analysis using CNN + Severity Clustering. Upload skin image for instant diagnosis.</p>
+</header>
 
-            <div id="results" class="results hidden">
-                <div class="result-header">
-                    <h2><i class="fas fa-chart-line"></i> Diagnosis Results</h2>
-                </div>
-                <div class="result-grid">
-                    <div class="result-card disease-card">
-                        <h3><i class="fas fa-bug"></i> Disease</h3>
-                        <div id="disease" class="disease-name"></div>
-                    </div>
-                    <div class="result-card severity-card">
-                        <h3><i class="fas fa-exclamation-triangle"></i> Severity</h3>
-                        <div id="severity" class="severity-badge"></div>
-                    </div>
-                    <div class="result-card confidence-card">
-                        <h3><i class="fas fa-percentage"></i> Confidence</h3>
-                        <div class="confidence-bar">
-                            <div id="confidenceFill" class="confidence-fill"></div>
-                        </div>
-                        <span id="confidenceText" class="confidence-text"></span>
-                    </div>
-                </div>
-                <div class="action-buttons">
-                    <button id="analyzeAgain" class="secondary-btn">
-                        <i class="fas fa-redo"></i> Analyze Another
-                    </button>
-                </div>
-            </div>
-        </main>
+<main>
 
-        <footer>
-            <p>&copy; 2024 Skin Disease AI. Trained on HAM10000 dataset. <strong>Disclaimer:</strong> For educational/research use only. Consult dermatologist for medical advice.</p>
-        </footer>
-    </div>
-    <script src="script.js"></script>
+<div id="upload-section" class="upload-area">
+
+<div class="upload-zone" id="uploadZone">
+<i class="fas fa-cloud-upload-alt upload-icon"></i>
+<h3>Drag & drop your skin image here<br>or click to browse</h3>
+<p>Supports JPG, PNG (max 10MB)</p>
+
+<input type="file" id="imageInput" accept="image/*" hidden>
+
+</div>
+
+<div id="preview" class="preview hidden">
+
+<img id="previewImg" alt="Preview">
+
+<button id="predictBtn" class="predict-btn">
+<i class="fas fa-brain"></i> Analyze Skin
+</button>
+
+</div>
+
+</div>
+
+<div id="loading" class="loading hidden">
+
+<div class="spinner"></div>
+
+<p>Analyzing... This may take 10-20 seconds</p>
+
+</div>
+
+<div id="results" class="results hidden">
+
+<div class="result-header">
+
+<h2><i class="fas fa-chart-line"></i> Diagnosis Results</h2>
+
+</div>
+
+<div class="result-grid">
+
+<div class="result-card disease-card">
+
+<h3><i class="fas fa-bug"></i> Disease</h3>
+
+<div id="disease" class="disease-name"></div>
+
+</div>
+
+<div class="result-card severity-card">
+
+<h3><i class="fas fa-exclamation-triangle"></i> Severity</h3>
+
+<div id="severity" class="severity-badge"></div>
+
+</div>
+
+<div class="result-card confidence-card">
+
+<h3><i class="fas fa-percentage"></i> Confidence</h3>
+
+<div class="confidence-bar">
+
+<div id="confidenceFill" class="confidence-fill"></div>
+
+</div>
+
+<span id="confidenceText" class="confidence-text"></span>
+
+</div>
+
+</div>
+
+<div class="action-buttons">
+
+<button id="analyzeAgain" class="secondary-btn">
+
+<i class="fas fa-redo"></i> Analyze Another
+
+</button>
+
+</div>
+
+</div>
+
+</main>
+
+<footer>
+
+<p>
+&copy; 2024 Skin Disease AI. Trained on HAM10000 dataset.
+<strong>Disclaimer:</strong> For educational/research use only.
+Consult dermatologist for medical advice.
+</p>
+
+</footer>
+
+</div>
+
+<!-- JS -->
+<script src="/static/script.js"></script>
+
 </body>
 </html>

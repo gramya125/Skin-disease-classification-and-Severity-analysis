@@ -18,7 +18,7 @@ class SkinPredictor:
             )
 
         # Load CNN model
-        self.cnn_model = load_model(str(MODEL_PATHS["cnn"]))
+        self.cnn_model = load_model(str(MODEL_PATHS["cnn"]), compile=False)
 
         # Build model
         dummy = np.zeros((1,256,256,3))
